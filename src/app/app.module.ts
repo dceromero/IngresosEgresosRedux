@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
@@ -6,9 +7,10 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore'
-//import { getAuth, provideAuth  } from '@angular/fire/auth'
-//import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducers } from './app.reducer';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -24,16 +26,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,   
     AngularFireAuthModule,
-    //provideFirebaseApp(() => initializeApp(environment.firebase)),
-    //provideAuth(() => getAuth()), 
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly:isDevMode()
+    }),
     IngresosEgresosModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
