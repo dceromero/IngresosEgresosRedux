@@ -14,14 +14,11 @@ import { appReducers } from './app.reducer';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { IngresosEgresosModule } from './ingreso-egreso/ingresos-egresos.module';
 import { AuthModule } from './auth/auth.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DashboardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +32,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
       maxAge: 25,
       logOnly:isDevMode()
     }),
-    IngresosEgresosModule,
+    
     AuthModule,
     SharedModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })

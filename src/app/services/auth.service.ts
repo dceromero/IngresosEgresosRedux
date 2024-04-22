@@ -27,20 +27,24 @@ export class AuthService {
   
   initAuthListener() {
     this.auth.authState.subscribe(fUser => {
+      // si el usuario está logueado, se suscribe al usuario en la base de datos
+      // y actualiza el usuario en el estado y en el store
       if (fUser) {
         this.subcription = this.fireStrore.doc(`${fUser?.uid}/usuario`).valueChanges()
           .subscribe(fbUser => {
-            let userString: string = (JSON.stringify(fbUser));
-            const user = UsuarioModel.fromFirebase(userString);
+            const user = UsuarioModel.fromFirebase(JSON.stringify(fbUser));
             this._usuario = user;
             this.store.dispatch(actionsUser.setUser({ user }));
           });
       } else {
+        // si el usuario ha cerrado sesion, se elimina el usuario en el estado
+        // y en el store, y se desuscribe al usuario en la base de datos
         if (this.subcription) this.subcription.unsubscribe();
         this._usuario = { mail: '', nombre: '', uid: '' };
         this.store.dispatch(actionsUser.unSetUser());
         this.store.dispatch(actionsItems.unSetItems());
       }
+
     });
   }
 

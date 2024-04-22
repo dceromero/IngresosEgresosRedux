@@ -40,13 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     if (this.formLogin.invalid) return;
-    this.store.dispatch(ui.isLoading())
-    // Swal.fire({
-    //   title: "por favor espere",
-    //   didOpen: () => {
-    //     Swal.showLoading();
-    //   }
-    // });
+    this.store.dispatch(ui.isLoading());
 
     const { mail, password } = this.formLogin.value;
     this.auth.loginUser(mail, password)

@@ -23,7 +23,7 @@
                     'text-success': item.tipo ==='Ingreso',
                     'text-danger' : item.tipo !=='Ingreso'
                   }"><strong>{{item.tipo}}</strong>r</td>
-              <td><button class="btn btn-outline-danger btn-sm" (click)="deleteItem(item.uid)">
+              <td><button class="btn btn-outline-danger btn-sm" (click)="deleteItem(item.uid || '')">
                   <i class="fa fa-trash"></i>
                   Eliminar</button></td>
             </tr>

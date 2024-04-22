@@ -4,6 +4,7 @@ import { AppState } from '../../app.reducer';
 import { Subscription } from 'rxjs';
 import { IngresoEgresoModel } from '../../models/ingreso-egreso.model';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { AppStateWithIngresosEgresos } from '../ingresos-egresos.reducer';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { Color, ScaleType } from '@swimlane/ngx-charts';
 export class EstadisticaComponent implements OnInit, OnDestroy {
 
 
-  private store: Store<AppState> = inject(Store);
+  private store: Store<AppStateWithIngresosEgresos> = inject(Store);
   private subcription?: Subscription;
 
   colorScheme:Color = {
@@ -48,6 +49,8 @@ export class EstadisticaComponent implements OnInit, OnDestroy {
   }
 
   generarEstaistica(items: IngresoEgresoModel[]) {
+    this.totalEgresos =0;
+    this.totalIngresos =0;
     for (const item of items) {
       if (item.tipo === 'Ingreso') {
         this.ingresos++;

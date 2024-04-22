@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
   public name:string ='';
 
   ngOnInit(): void {
-    this.store.select('auth').subscribe(resp=> this.name = resp.user.nombre);
+    this.store.select('auth').subscribe(({user})=> this.name = user.nombre);
   }
 
   logout() {
